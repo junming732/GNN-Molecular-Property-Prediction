@@ -1,0 +1,36 @@
+
+model:
+  name: "CGCNN"
+  params:
+    node_fea_dim: 64
+    num_layers: 3
+    invariant: true
+    cutoff: 12.0
+    max_neighbors: 30
+    dropout: 0.1
+
+training:
+  batch_size: 32
+  learning_rate: 0.001
+  num_epochs: 100
+  early_stopping_patience: 10
+
+optimizer:
+  name: "AdamW"
+  params:
+    weight_decay: 0.01
+    betas: [0.9, 0.999]
+
+scheduler:
+  name: "ReduceLROnPlateau"
+  params:
+    patience: 5
+    factor: 0.5
+    min_lr: 1e-6
+
+data:
+  dataset: "COLL"
+  split: [0.7, 0.15, 0.15]
+  preprocessing:
+    cutoff: 12.0
+    max_neighbors: 30

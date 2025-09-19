@@ -1,0 +1,39 @@
+experiments:
+  - name: "CGCNN_Invariant"
+    model:
+      name: "CGCNN"
+      params:
+        node_fea_dim: 64
+        num_layers: 3
+        invariant: true
+        cutoff: 12.0
+        max_neighbors: 30
+
+  - name: "CGCNN_NonInvariant"
+    model:
+      name: "CGCNN"
+      params:
+        node_fea_dim: 64
+        num_layers: 3
+        invariant: false
+        cutoff: 12.0
+        max_neighbors: 30
+
+  - name: "EnhancedCGCNN_Invariant"
+    model:
+      name: "EnhancedCGCNN"
+      params:
+        node_fea_dim: 64
+        num_layers: 3
+        invariant: true
+        cutoff: 12.0
+        max_neighbors: 30
+        use_attention: false
+        dropout: 0.1
+
+training:
+  batch_size: 32
+  learning_rate: 0.001
+  num_epochs: 100
+
+optimizer: "AdamW"
