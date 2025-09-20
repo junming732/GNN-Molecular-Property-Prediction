@@ -45,8 +45,6 @@ repos:
     hooks:
       - id: mypy
         pass_filenames: false
-        env:
-          PYTHONPATH: src
         args:
           - --ignore-missing-imports
           - src/data

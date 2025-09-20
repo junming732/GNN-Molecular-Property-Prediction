@@ -32,6 +32,7 @@ jobs:
         pip install torch-geometric
         # Install remaining requirements
         pip install -r requirements.txt
+        pip install -e .
 
     - name: Run tests
       run: |
