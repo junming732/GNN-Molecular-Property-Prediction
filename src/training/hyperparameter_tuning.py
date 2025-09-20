@@ -4,7 +4,9 @@ import torch.nn.functional as F
 import torch.optim as optim
 
 
-def hyperparameter_optimization(config_space, train_loader, val_loader, device, num_trials=50):
+def hyperparameter_optimization(
+    config_space, train_loader, val_loader, device, num_trials=50
+):
     def objective(trial):
         # Suggest hyperparameters
         node_fea_dim = trial.suggest_categorical("node_fea_dim", [32, 64, 128])

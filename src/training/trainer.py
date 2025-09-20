@@ -99,7 +99,9 @@ class MolecularTrainer:
             self.history["val_rmse"].append(val_rmse)
 
             print(f"Epoch {epoch+1}/{num_epochs}:")
-            print(f"Train Loss: {train_loss:.4f}, MAE: {train_mae:.4f}, RMSE: {train_rmse:.4f}")
+            print(
+                f"Train Loss: {train_loss:.4f}, MAE: {train_mae:.4f}, RMSE: {train_rmse:.4f}"
+            )
             print(f"Val Loss: {val_loss:.4f}, MAE: {val_mae:.4f}, RMSE: {val_rmse:.4f}")
 
             # Early stopping

@@ -12,7 +12,9 @@ class TestData:
         """Test graph generation from atomic positions"""
         # Mock the radius_graph function with correct shape
         # radius_graph returns a tensor of shape [2, num_edges]
-        mock_radius_graph.return_value = torch.tensor([[0, 1], [1, 0]], dtype=torch.long)
+        mock_radius_graph.return_value = torch.tensor(
+            [[0, 1], [1, 0]], dtype=torch.long
+        )
 
         class MockData:
             def __init__(self):
@@ -26,7 +28,9 @@ class TestData:
                 self.batch = torch.tensor([0, 0, 0])
 
         data = MockData()
-        edge_index, edge_dist, distance_vec = generate_otf_graph(data, cutoff=1.5, max_neighbors=10, pbc=False)
+        edge_index, edge_dist, distance_vec = generate_otf_graph(
+            data, cutoff=1.5, max_neighbors=10, pbc=False
+        )
 
         # Should create edges only between close atoms
         assert edge_index.shape[0] == 2  # Two rows for source and target
@@ -39,7 +43,9 @@ class TestData:
         class MockData:
             def __init__(self):
                 self.atomic_numbers = torch.tensor([1, 6, 8])  # H, C, O
-                self.pos = torch.tensor([[0.0, 0.0, 0.0], [1.0, 0.0, 0.0], [0.0, 1.0, 0.0]])
+                self.pos = torch.tensor(
+                    [[0.0, 0.0, 0.0], [1.0, 0.0, 0.0], [0.0, 1.0, 0.0]]
+                )
                 self.batch = torch.tensor([0, 0, 0])
 
         data = MockData()

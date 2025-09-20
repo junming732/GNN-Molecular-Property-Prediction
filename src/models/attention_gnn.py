@@ -59,7 +59,9 @@ class GraphAttentionLayer(MessagePassing):
         value = self.lin_value(x).view(-1, self.heads, self.out_channels)
 
         # Propagate messages
-        out = self.propagate(edge_index, query=query, key=key, value=value, edge_attr=edge_attr)
+        out = self.propagate(
+            edge_index, query=query, key=key, value=value, edge_attr=edge_attr
+        )
 
         # Skip connection
         skip = self.lin_skip(x).view(-1, self.heads, self.out_channels)
@@ -112,17 +114,29 @@ class AttentionCGCNN(nn.Module):
         self.embed = nn.Embedding(118, node_fea_dim)
 
         self.attention_layers = nn.ModuleList(
-            [GraphAttentionLayer(node_fea_dim, node_fea_dim, edge_fea_dim, heads, dropout) for _ in range(num_layers)]
+            [
+                GraphAttentionLayer(
+                    node_fea_dim, node_fea_dim, edge_fea_dim, heads, dropout
+                )
+                for _ in range(num_layers)
+            ]
         )
 
-        self.bn_layers = nn.ModuleList([nn.BatchNorm1d(node_fea_dim) for _ in range(num_layers)])
+        self.bn_layers = nn.ModuleList(
+            [nn.BatchNorm1d(node_fea_dim) for _ in range(num_layers)]
+        )
         self.activation = nn.Softplus()
         self.dropout = nn.Dropout(dropout)
 
         self.pool = lambda x, batch: (
             torch.mean(x, dim=0)
             if batch is None
-            else torch.stack([torch.mean(x[batch == i], dim=0) for i in range(batch.max().item() + 1)])
+            else torch.stack(
+                [
+                    torch.mean(x[batch == i], dim=0)
+                    for i in range(batch.max().item() + 1)
+                ]
+            )
         )
 
         self.out_mlp = nn.Sequential(
@@ -133,7 +147,9 @@ class AttentionCGCNN(nn.Module):
         )
 
     def forward(self, data):
-        edge_index, edge_dist, distance_vec = generate_otf_graph(data, self.cutoff, self.max_neighbors, self.pbc)
+        edge_index, edge_dist, distance_vec = generate_otf_graph(
+            data, self.cutoff, self.max_neighbors, self.pbc
+        )
 
         if self.edge_fea_dim == 1:
             edge_attr = edge_dist.unsqueeze(-1)

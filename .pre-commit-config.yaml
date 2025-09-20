@@ -22,15 +22,15 @@ repos:
         args:
           - --profile
           - black
-          - --line-length=127
+          # - --line-length=127
 
   # Black code formatter
   - repo: https://github.com/psf/black
     rev: 25.9.0
     hooks:
       - id: black
-        args:
-          - --line-length=127
+        # args:
+        #   - --line-length=127
 
   # Flake8 for linting
   - repo: https://github.com/pycqa/flake8
