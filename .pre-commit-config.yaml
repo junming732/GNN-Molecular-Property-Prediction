@@ -16,11 +16,11 @@ repos:
 
   # Black code formatter
   - repo: https://github.com/psf/black
-    rev: 23.3.0
+    rev: 25.9.0
     hooks:
       - id: black
-        args:
-          - --line-length=127
+        # args:
+        #   - --line-length=127
 
   # isort for import sorting
   - repo: https://github.com/pycqa/isort

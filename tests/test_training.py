@@ -8,7 +8,9 @@ from training.trainer import MolecularTrainer
 class TestTraining:
     def test_molecular_trainer_initialization(self):
         """Test that MolecularTrainer initializes correctly"""
-        model = CGCNN(node_fea_dim=32, invariant=True, num_layers=2, cutoff=12.0, max_neighbors=30)
+        model = CGCNN(
+            node_fea_dim=32, invariant=True, num_layers=2, cutoff=12.0, max_neighbors=30
+        )
 
         optimizer = torch.optim.Adam(model.parameters(), lr=0.001)
         trainer = MolecularTrainer(model, optimizer, device="cpu")
@@ -19,7 +21,9 @@ class TestTraining:
 
     def test_trainer_history(self):
         """Test that trainer maintains history correctly"""
-        model = CGCNN(node_fea_dim=16, invariant=True, num_layers=1, cutoff=12.0, max_neighbors=30)
+        model = CGCNN(
+            node_fea_dim=16, invariant=True, num_layers=1, cutoff=12.0, max_neighbors=30
+        )
 
         optimizer = torch.optim.Adam(model.parameters(), lr=0.001)
         trainer = MolecularTrainer(model, optimizer, device="cpu")
