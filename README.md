@@ -10,7 +10,7 @@ This project implements and benchmarks multiple GNN architectures for molecular 
 
 ### Installation
 ```bash
-pip install -r requirements.txt
+pip install -r requirement.txt
 ```
 ### Basic usage
 ```python
