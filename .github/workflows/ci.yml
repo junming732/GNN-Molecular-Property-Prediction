@@ -25,8 +25,13 @@ jobs:
     - name: Install dependencies
       run: |
         python -m pip install --upgrade pip
-        pip install -r requirement.txt
-        pip install pytest
+        # Install specific PyTorch version with CUDA or CPU
+        pip install torch==2.0.1 --extra-index-url https://download.pytorch.org/whl/cpu
+        # Then install torch-geometric with pre-built wheels
+        pip install torch-scatter torch-sparse torch-cluster torch-spline-conv -f https://data.pyg.org/whl/torch-2.0.1+cpu.html
+        pip install torch-geometric
+        # Install remaining requirements
+        pip install -r requirements.txt
 
     - name: Run tests
       run: |
