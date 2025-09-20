@@ -27,9 +27,9 @@ jobs:
         python -m pip install --upgrade pip
         # Install NumPy first with compatible version
         pip install "numpy>=1.21.0,<1.24.0"
-        # Install PyTorch
+        # Install PyTorch FIRST
         pip install torch>=1.9.0
-        # Install PyG dependencies
+        # NOW install PyG dependencies
         pip install torch-scatter torch-sparse torch-cluster torch-spline-conv -f https://data.pyg.org/whl/torch-$(python -c "import torch; print(torch.__version__.split('+')[0])").html
         # Install remaining requirements
         pip install -r requirements.txt

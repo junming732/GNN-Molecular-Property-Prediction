@@ -14,6 +14,15 @@ repos:
       - id: debug-statements
       - id: detect-private-key
 
+  # isort for import sorting
+  - repo: https://github.com/pycqa/isort
+    rev: 6.0.1
+    hooks:
+      - id: isort
+        args:
+          - --profile
+          - black
+
   # Black code formatter
   - repo: https://github.com/psf/black
     rev: 25.9.0
@@ -21,16 +30,6 @@ repos:
       - id: black
         # args:
         #   - --line-length=127
-
-  # isort for import sorting
-  - repo: https://github.com/pycqa/isort
-    rev: 5.12.0
-    hooks:
-      - id: isort
-        args:
-          - --profile
-          - black
-          - --line-length=127
 
   # Flake8 for linting
   - repo: https://github.com/pycqa/flake8
