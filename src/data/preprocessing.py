@@ -26,9 +26,7 @@ class MolecularPreprocessor(BaseTransform):
 
     def __call__(self, data):
         # Generate graph structure
-        edge_index, edge_dist, distance_vec = generate_otf_graph(
-            data, self.cutoff, self.max_neighbors
-        )
+        edge_index, edge_dist, distance_vec = generate_otf_graph(data, self.cutoff, self.max_neighbors)
 
         data.edge_index = edge_index
         data.edge_dist = edge_dist

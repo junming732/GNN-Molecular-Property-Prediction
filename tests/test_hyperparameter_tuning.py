@@ -17,9 +17,7 @@ class TestHyperparameterTuning:
             assert callable(hyperparameter_optimization)
         except ImportError:
             # Skip this test if the import fails due to the known issue
-            pytest.skip(
-                "hyperparameter_optimization import failed due to circular import issue"
-            )
+            pytest.skip("hyperparameter_optimization import failed due to circular import issue")
 
     def test_hyperparameter_optimization_smoke_test(self):
         """Smoke test for hyperparameter optimization function"""

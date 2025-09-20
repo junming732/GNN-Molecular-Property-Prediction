@@ -93,23 +93,14 @@ class CGCNN(nn.Module):
 
         self.embed = nn.Embedding(118, node_fea_dim)
 
-        self.cgcnn_layers = nn.ModuleList(
-            [CGCNNLayer(node_fea_dim, edge_fea_dim) for _ in range(num_layers)]
-        )
-        self.bn_layers = nn.ModuleList(
-            [nn.BatchNorm1d(node_fea_dim) for _ in range(num_layers)]
-        )
+        self.cgcnn_layers = nn.ModuleList([CGCNNLayer(node_fea_dim, edge_fea_dim) for _ in range(num_layers)])
+        self.bn_layers = nn.ModuleList([nn.BatchNorm1d(node_fea_dim) for _ in range(num_layers)])
         self.activation = nn.Softplus()
 
         self.pool = lambda x, batch: (
             torch.mean(x, dim=0)
             if batch is None
-            else torch.stack(
-                [
-                    torch.mean(x[batch == i], dim=0)
-                    for i in range(batch.max().item() + 1)
-                ]
-            )
+            else torch.stack([torch.mean(x[batch == i], dim=0) for i in range(batch.max().item() + 1)])
         )
 
         self.out_mlp = nn.Sequential(
@@ -119,9 +110,7 @@ class CGCNN(nn.Module):
         )
 
     def forward(self, data):
-        edge_index, edge_dist, distance_vec = generate_otf_graph(
-            data, self.cutoff, self.max_neighbors, self.pbc
-        )
+        edge_index, edge_dist, distance_vec = generate_otf_graph(data, self.cutoff, self.max_neighbors, self.pbc)
 
         if self.edge_fea_dim == 1:
             edge_attr = edge_dist.unsqueeze(-1)
@@ -176,31 +165,19 @@ class EnhancedCGCNN(nn.Module):
             from .attention_gnn import GraphAttentionLayer
 
             self.cgcnn_layers = nn.ModuleList(
-                [
-                    GraphAttentionLayer(node_fea_dim, node_fea_dim, edge_fea_dim)
-                    for _ in range(num_layers)
-                ]
+                [GraphAttentionLayer(node_fea_dim, node_fea_dim, edge_fea_dim) for _ in range(num_layers)]
             )
         else:
-            self.cgcnn_layers = nn.ModuleList(
-                [CGCNNLayer(node_fea_dim, edge_fea_dim) for _ in range(num_layers)]
-            )
+            self.cgcnn_layers = nn.ModuleList([CGCNNLayer(node_fea_dim, edge_fea_dim) for _ in range(num_layers)])
 
-        self.bn_layers = nn.ModuleList(
-            [nn.BatchNorm1d(node_fea_dim) for _ in range(num_layers)]
-        )
+        self.bn_layers = nn.ModuleList([nn.BatchNorm1d(node_fea_dim) for _ in range(num_layers)])
         self.activation = nn.Softplus()
         self.dropout = nn.Dropout(dropout)
 
         self.pool = lambda x, batch: (
             torch.mean(x, dim=0)
             if batch is None
-            else torch.stack(
-                [
-                    torch.mean(x[batch == i], dim=0)
-                    for i in range(batch.max().item() + 1)
-                ]
-            )
+            else torch.stack([torch.mean(x[batch == i], dim=0) for i in range(batch.max().item() + 1)])
         )
 
         # Enhanced output MLP
@@ -214,9 +191,7 @@ class EnhancedCGCNN(nn.Module):
         )
 
     def forward(self, data):
-        edge_index, edge_dist, distance_vec = generate_otf_graph(
-            data, self.cutoff, self.max_neighbors, self.pbc
-        )
+        edge_index, edge_dist, distance_vec = generate_otf_graph(data, self.cutoff, self.max_neighbors, self.pbc)
 
         if self.edge_fea_dim == 1:
             edge_attr = edge_dist.unsqueeze(-1)
