@@ -1,10 +1,11 @@
-import torch
-import pytest
-import sys
 import os
+import sys
+
+import pytest
 
 # Add the src directory to the path
-sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
+sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), "..")))
+
 
 class TestHyperparameterTuning:
     def test_hyperparameter_optimization_import(self):
@@ -12,6 +13,7 @@ class TestHyperparameterTuning:
         # Import here to avoid issues with the broken import in the main file
         try:
             from src.training.hyperparameter_tuning import hyperparameter_optimization
+
             assert callable(hyperparameter_optimization)
         except ImportError:
             # Skip this test if the import fails due to the known issue
@@ -22,5 +24,6 @@ class TestHyperparameterTuning:
         # Skip this test since the main function has import issues
         pytest.skip("Skipping due to import issues in hyperparameter_tuning.py")
 
-if __name__ == '__main__':
-    pytest.main([__file__, '-v'])
+
+if __name__ == "__main__":
+    pytest.main([__file__, "-v"])

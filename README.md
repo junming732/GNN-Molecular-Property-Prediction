@@ -14,8 +14,8 @@ pip install -r requirements.txt
 ```
 ### Basic usage
 ```python
-from src.models import CGCNN
-from src.training import MolecularTrainer
+from models import CGCNN
+from training import MolecularTrainer
 
 # Create model
 model = CGCNN(node_fea_dim=64, invariant=True, num_layers=3)
@@ -46,7 +46,7 @@ history = trainer.train(train_loader, val_loader, epochs=100)
 ## 📊 Example Results
 ```python
 # Compare model performance
-from src.training import BenchmarkingSuite
+from training import BenchmarkingSuite
 
 benchmark = BenchmarkingSuite(test_loader)
 benchmark.evaluate_model(model, "CGCNN")
